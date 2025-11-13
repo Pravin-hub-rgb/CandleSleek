@@ -1,3 +1,14 @@
+#CandleSleek 
+- which visualize candles from csv data... 
+- your csv data should be in the following format.
+```
+timestamp,open,high,low,close
+2025-11-13T15:29:00+05:30,133.65,134.75,131.95,133.25
+2025-11-13T15:28:00+05:30,132.30,133.80,131.00,133.25
+```
+![](./public/img/2.png)
+
+![](./public/img/1.png)
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
