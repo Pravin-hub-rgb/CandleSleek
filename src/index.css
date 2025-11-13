@@ -1,7 +1,24 @@
 @import "tailwindcss";
 
-* {
+/* ---- BETTER CSS RESET ---- */
+*, *::before, *::after { 
+  box-sizing: border-box; 
+}
+
+/* Only reset specific elements, not ALL elements */
+html, body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  height: 100%;
 }
+
+#root {
+  height: 100%;
+}
+
+/* Remove default margins from common elements */
+h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd {
+  margin: 0;
+}
+
+/* Keep button/input defaults intact - don't reset them globally */
