@@ -7,6 +7,7 @@ export default function CandlestickChart() {
   const [error, setError] = useState(null)
   const [isDragging, setIsDragging] = useState(false)
   const [hoverData, setHoverData] = useState(null)
+  const [fileName, setFileName] = useState('')
   const [chartState, setChartState] = useState({
     offsetX: 0,
     scale: 1,
@@ -60,7 +61,18 @@ export default function CandlestickChart() {
   }
 
   const handleFile = file => {
-    if (!file.name.endsWith('.csv')) return setError('Please upload a CSV file')
+    console.log('Handling file:', file?.name);
+    if (!file) {
+      console.log('No file provided');
+      return;
+    }
+    if (!file.name.endsWith('.csv')) {
+      console.log('Not a CSV file');
+      return setError('Please upload a CSV file');
+    }
+    
+    console.log('Setting filename to:', file.name);
+    setFileName(file.name)
     
     const reader = new FileReader()
     reader.onload = e => {
@@ -101,6 +113,10 @@ export default function CandlestickChart() {
     setData(null)
     setError(null)
     setHoverData(null)
+    setFileName('')
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
+    }
   }
 
   if (!data) {
@@ -121,15 +137,25 @@ export default function CandlestickChart() {
   }
 
   return (
-    <div className="h-full">
-      <ChartCanvas
-        data={data}
-        chartState={chartState}
-        hoverData={hoverData}
-        setHoverData={setHoverData}
-        setChartState={setChartState}
-        onReset={handleReset}
-      />
+    <div className="h-full relative">
+      {fileName && (
+        <div 
+          className="absolute left-4 top-4 text-gray-200 text-sm font-mono px-3 py-1 rounded z-10"
+          style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)' }}
+        >
+          {fileName}
+        </div>
+      )}
+      <div className="h-full">
+        <ChartCanvas
+          data={data}
+          chartState={chartState}
+          hoverData={hoverData}
+          setHoverData={setHoverData}
+          setChartState={setChartState}
+          onReset={handleReset}
+        />
+      </div>
     </div>
   )
 }

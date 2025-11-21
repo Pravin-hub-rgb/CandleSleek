@@ -186,9 +186,13 @@ export default function ChartCanvas({
         x += 90
       })
 
-      ctx.fillStyle = '#64748b'
+      // Format timestamp to show only time (HH:MM)
+      const timeMatch = c.timestamp.match(/(?:T|\s)(\d{1,2}:\d{2})/);
+      const displayTime = timeMatch ? timeMatch[1] : c.timestamp;
+      
+      ctx.fillStyle = '#ffffff'  // Brighter white color
       ctx.font = '13px monospace'
-      ctx.fillText(c.timestamp, padding.left + 30, padding.top + 58)
+      ctx.fillText(displayTime, padding.left + 30, padding.top + 58)
     }
   }
 
