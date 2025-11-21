@@ -42,8 +42,15 @@ export default function CandlestickChart() {
       
       if ([open, high, low, close].some(isNaN)) continue
       
-      const timeMatch = timestamp.match(/T(\d{2}:\d{2})/)
-      const time = timeMatch ? timeMatch[1] : timestamp
+      // Extract time in H:MM format from timestamp (remove leading zero from hour)
+      let time = timestamp;
+      // Match either '2025-11-21 09:15:00+05:30' or '09:15:00' format
+      const timeMatch = timestamp.match(/(?:T|\s)(\d{1,2}):(\d{2})/);
+      if (timeMatch) {
+        // Remove leading zero from hour if present
+        const hour = timeMatch[1].startsWith('0') ? timeMatch[1].substring(1) : timeMatch[1];
+        time = `${hour}:${timeMatch[2]}`;
+      }
       
       out.push({ time, open, high, low, close, timestamp })
     }

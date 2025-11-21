@@ -127,7 +127,8 @@ export default function ChartCanvas({
       if (i % interval === 0) {
         const x = padding.left + chartState.offsetX + i * (candleW + spacing) + candleW / 2
         if (x >= padding.left && x <= width - padding.right) {
-          ctx.fillText(c.time, x, height - padding.bottom + 25)
+          const time = c.time.includes('T') ? c.time.split('T')[1].substring(0, 5) : c.time;
+          ctx.fillText(time, x, height - padding.bottom + 25)
         }
       }
     })
